@@ -44,13 +44,12 @@ const Recipes = () => {
 
       {/* Search */}
       <div className="relative">
-        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
         <input
           type="text"
           placeholder="Search recipes..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="pl-11"
+          className="!pl-11"
         />
       </div>
 

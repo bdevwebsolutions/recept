@@ -1,8 +1,8 @@
-version: '3.9'
-
 services:
   app:
     build: .
+    container_name: recept
+    restart: unless-stopped
     ports:
       - '3000:3000'
     volumes:
@@ -10,4 +10,4 @@ services:
       - ./uploads:/app/uploads
     environment:
       - NODE_ENV=production
-
+      - PORT=3000
