@@ -11,3 +11,5 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+      # Set to true only if serving over HTTPS/terminated TLS at proxy
+      - COOKIE_SECURE=false

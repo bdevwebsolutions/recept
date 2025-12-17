@@ -29,13 +29,13 @@ const setupSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters'),
 })
 
-const isProduction = process.env.NODE_ENV === 'production'
+const secureCookie = process.env.COOKIE_SECURE === 'true'
 
 const setSessionCookie = (c: Hono.Context<AppEnv>, token: string) => {
   setCookie(c, 'session', token, {
     httpOnly: true,
     sameSite: 'Lax',
-    secure: isProduction,
+    secure: secureCookie,
     path: '/',
     maxAge: SESSION_DAYS * 24 * 60 * 60,
   })
