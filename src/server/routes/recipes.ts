@@ -62,7 +62,9 @@ const saveImage = async (file?: File) => {
   const ext = path.extname(file.name) || '.jpg'
   const filename = `${Date.now()}-${Math.random().toString(16).slice(2)}${ext}`
   const dest = path.join(uploadDir, filename)
-  await Bun.write(dest, file.stream())
+  // Use arrayBuffer() instead of stream() for reliable file writing
+  const buffer = await file.arrayBuffer()
+  await Bun.write(dest, buffer)
   return `/uploads/${filename}`
 }
 
