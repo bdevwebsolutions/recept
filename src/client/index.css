@@ -261,3 +261,131 @@ input[type="checkbox"] {
 .dark *:focus-visible {
   @apply ring-offset-[#0f0f23];
 }
+
+/* Rich Text Editor (Tiptap) */
+.rich-text-editor {
+  @apply rounded-xl overflow-hidden;
+}
+
+/* Tiptap editor content area */
+.ProseMirror {
+  @apply outline-none min-h-[200px] px-4 py-3;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-gray-400 dark:text-gray-500;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.ProseMirror p {
+  @apply mb-2;
+}
+
+.ProseMirror h1 {
+  @apply text-2xl font-bold mt-4 mb-2;
+}
+
+.ProseMirror h2 {
+  @apply text-xl font-bold mt-4 mb-2;
+}
+
+.ProseMirror h3 {
+  @apply text-lg font-bold mt-4 mb-2;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  @apply my-2 ml-6;
+}
+
+.ProseMirror ul {
+  @apply list-disc;
+}
+
+.ProseMirror ol {
+  @apply list-decimal;
+}
+
+.ProseMirror li {
+  @apply mb-1;
+}
+
+.ProseMirror strong {
+  @apply font-semibold;
+}
+
+.ProseMirror em {
+  @apply italic;
+}
+
+.ProseMirror s {
+  @apply line-through;
+}
+
+/* Prose styles for rendered HTML content */
+.prose {
+  @apply text-ink/90;
+}
+
+.dark .prose {
+  @apply text-gray-200;
+}
+
+.prose p {
+  @apply mb-4 leading-relaxed;
+}
+
+.prose h1, .prose h2, .prose h3 {
+  @apply font-bold mt-6 mb-3 text-ink;
+}
+
+.dark .prose h1, .dark .prose h2, .dark .prose h3 {
+  @apply text-gray-100;
+}
+
+.prose h1 {
+  @apply text-2xl;
+}
+
+.prose h2 {
+  @apply text-xl;
+}
+
+.prose h3 {
+  @apply text-lg;
+}
+
+.prose ul, .prose ol {
+  @apply mb-4 ml-6;
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose a {
+  @apply text-accent hover:text-accent-hover underline;
+}
+
+.prose strong {
+  @apply font-semibold text-ink;
+}
+
+.dark .prose strong {
+  @apply text-gray-100;
+}
+
+.prose em {
+  @apply italic;
+}

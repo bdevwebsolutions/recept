@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Clock, Edit2, ImageOff, Trash2, User } from 'lucide-react'
+import DOMPurify from 'dompurify'
 
 type RecipeDetailData = {
   id: number
@@ -53,6 +54,31 @@ const RecipeDetail = () => {
       month: 'long', 
       day: 'numeric' 
     })
+  }
+
+  // Check if content is HTML (has HTML tags) or plain text
+  const isHTML = (text: string) => {
+    const htmlTagRegex = /<\/?[a-z][\s\S]*>/i
+    return htmlTagRegex.test(text)
+  }
+
+  // Render content - HTML if it contains tags, otherwise plain text
+  const renderContent = (content: string) => {
+    if (isHTML(content)) {
+      // Sanitize and render HTML
+      const sanitized = DOMPurify.sanitize(content, {
+        ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 's', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'a'],
+        ALLOWED_ATTR: ['href', 'target', 'rel'],
+      })
+      return <div className="prose prose-gray dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: sanitized }} />
+    } else {
+      // Render as plain text (backward compatibility)
+      return (
+        <p className="whitespace-pre-wrap text-ink/80 dark:text-gray-300 leading-relaxed">
+          {content}
+        </p>
+      )
+    }
   }
 
   if (loading) {
@@ -142,10 +168,8 @@ const RecipeDetail = () => {
 
           <hr className="border-gray-100 dark:border-gray-800" />
 
-          <div className="prose prose-gray dark:prose-invert max-w-none">
-            <p className="whitespace-pre-wrap text-ink/80 dark:text-gray-300 leading-relaxed">
-              {recipe.content}
-            </p>
+          <div>
+            {renderContent(recipe.content)}
           </div>
         </div>
       </article>

@@ -69,6 +69,8 @@ const UserManagement = () => {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
   }
 
+  console.log(users)
+
   return (
     <div className="page-container space-y-6">
       {/* Header */}

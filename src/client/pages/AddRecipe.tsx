@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, ImagePlus, Save, X } from 'lucide-react'
+import RichTextEditor from '../components/RichTextEditor'
 
 const AddRecipe = () => {
   const navigate = useNavigate()
@@ -26,9 +27,21 @@ const AddRecipe = () => {
     setPreview(null)
   }
 
+  const isContentEmpty = (html: string) => {
+    // Strip HTML tags and check if there's actual text content
+    const text = html.replace(/<[^>]*>/g, '').trim()
+    return !text
+  }
+
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
+    
+    if (isContentEmpty(content)) {
+      setError('Please enter recipe instructions')
+      return
+    }
+    
     setLoading(true)
     try {
       const formData = new FormData()
@@ -87,13 +100,7 @@ const AddRecipe = () => {
         {/* Content */}
         <div>
           <label className="label">Instructions</label>
-          <textarea
-            placeholder="Write your recipe instructions, ingredients, tips..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows={8}
-            required
-          />
+          <RichTextEditor value={content} onChange={setContent} />
         </div>
 
         {/* Image */}
@@ -137,7 +144,7 @@ const AddRecipe = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-3 pt-2">
-          <button type="submit" className="btn-primary" disabled={loading}>
+          <button type="submit" className="btn-primary" disabled={loading || isContentEmpty(content)}>
             <Save size={18} />
             {loading ? 'Saving...' : 'Save Recipe'}
           </button>

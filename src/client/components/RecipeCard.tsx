@@ -39,7 +39,6 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
           <h3 className="text-lg font-semibold text-ink dark:text-white group-hover:text-accent transition-colors line-clamp-1">
             {recipe.title}
           </h3>
-          <p className="text-sm text-muted line-clamp-2">{recipe.content}</p>
           <div className="flex items-center gap-3 pt-2 text-xs text-muted">
             {recipe.author && (
               <span className="flex items-center gap-1">

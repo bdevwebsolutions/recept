@@ -36,3 +36,6 @@ const ProtectedRoute = ({ children, requireAdmin = false, allowSetup = false }: 
 
 export default ProtectedRoute
 
+
+
+
